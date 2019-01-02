@@ -1,14 +1,49 @@
-import { AppPage } from './app.po';
+import { LetslearnPage } from './app.po';
 
-describe('workspace-project App', () => {
-  let page: AppPage;
+describe('letslearn App', () => {
+  let page: LetslearnPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    page = new LetslearnPage();
   });
 
-  it('should display welcome message', () => {
+  it('Should display Letslearn title', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to letslearn-ci!');
+    expect(page.getTitle()).toEqual('Letslearn');
   });
+
+  it('Should start with 1 point', () => {
+    page.navigateTo();
+    expect(page.getPoints()).toEqual('1');
+  });
+
+  it('Should increase points by clicking plus1', () => {
+    page.navigateTo();
+
+    expect(page.getPoints()).toEqual('1');
+    page.getPlus1Button().click();
+
+    expect(page.getPoints()).toEqual('2');
+
+    page.getPlus1Button().click();
+    page.getPlus1Button().click();
+    page.getPlus1Button().click();
+
+    expect(page.getPoints()).toEqual('5');
+  });
+
+  it('Should rest points by clicking plus1', () => {
+    page.navigateTo();
+
+    page.getPlus1Button().click();
+    page.getPlus1Button().click();
+    page.getPlus1Button().click();
+
+    expect(page.getPoints()).toEqual('4');
+
+    page.getResetButton().click();
+
+    expect(page.getPoints()).toEqual('0');
+  });
+
 });

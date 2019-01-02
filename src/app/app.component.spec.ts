@@ -1,35 +1,49 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { LetslearnPage } from './app.po';
 
-describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+describe('letslearn App', () => {
+  let page: LetslearnPage;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  beforeEach(() => {
+    page = new LetslearnPage();
   });
 
-  it(`should have as title 'letslearn-ci'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('letslearn-ci');
+  it('Should display Letslearn title', () => {
+    page.navigateTo();
+    expect(page.getTitle()).toEqual('Letslearn');
   });
 
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to letslearn-ci!');
+  it('Should start with 1 point', () => {
+    page.navigateTo();
+    expect(page.getPoints()).toEqual('1');
   });
+
+  it('Should increase points by clicking plus1', () => {
+    page.navigateTo();
+
+    expect(page.getPoints()).toEqual('1');
+    page.getPlus1Button().click();
+
+    expect(page.getPoints()).toEqual('2');
+
+    page.getPlus1Button().click();
+    page.getPlus1Button().click();
+    page.getPlus1Button().click();
+
+    expect(page.getPoints()).toEqual('5');
+  });
+
+  it('Should rest points by clicking plus1', () => {
+    page.navigateTo();
+
+    page.getPlus1Button().click();
+    page.getPlus1Button().click();
+    page.getPlus1Button().click();
+
+    expect(page.getPoints()).toEqual('4');
+
+    page.getResetButton().click();
+
+    expect(page.getPoints()).toEqual('0');
+  });
+
 });

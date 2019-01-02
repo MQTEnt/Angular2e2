@@ -1,10 +1,19 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'lsl-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'letslearn-ci';
+  title = 'Letslearn';
+  points = 1;
+
+  plus1() {
+    this.points++;
+  }
+
+  reset() {
+    this.points = 0;
+  }
 }
